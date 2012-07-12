@@ -2,7 +2,7 @@
 
 ##Get started
     cd /tmp/
-    git clone https://github.com/lbdremy/solr-install.git
+    git clone https://github.com/alexnesbitt/solr-install.git
     cd solr-install
     ./install.sh
     sudo ./etc/init.d/jetty start
