@@ -15,8 +15,8 @@ fi
 #DIRS
 SCRIPT=$(readlink -f $0)
 BASEDIR=`dirname $SCRIPT`
-TMP=/tmp
-HOME_INSTALL=/usr/local
+TMP=/mnt/temp
+HOME_INSTALL=/usr/share
 
 # Create jetty user
 USER_EXIST=$(id -u jetty)
@@ -28,7 +28,7 @@ fi
 # Download and Install Jetty Server
 echo "Download and Install Jetty Server"
 cd $HOME_INSTALL
-JETTY_VERSION=7.4.2.v20110526
+JETTY_VERSION=7.6.4.v20120524
 sudo wget http://archive.eclipse.org/jetty/$JETTY_VERSION/dist/jetty-distribution-$JETTY_VERSION.tar.gz
 sudo tar xfz jetty-distribution-$JETTY_VERSION.tar.gz
 sudo rm jetty-distribution-$JETTY_VERSION.tar.gz
@@ -42,18 +42,19 @@ sudo cp $BASEDIR/conf/jetty.xml $JETTY_HOME/etc/jetty.xml
 
 #Download and Install Apache Solr
 echo "Download and Install Apache Solr"
+SOLR_VERSION=3.6.0
 cd $TMP
-wget http://apache.mirrors.timporter.net/lucene/solr/3.3.0/apache-solr-3.3.0.tgz
-tar -xzf apache-solr-3.3.0.tgz
-rm apache-solr-3.3.0.tgz
+wget http://apache.mirrors.timporter.net/lucene/solr/$SOLR_VERSION/apache-$SOLR_VERSION.tgz
+tar -xzf apache-solr-$SOLR_VERSION.tgz
+rm apache-solr-$SOLR_VERSION.tgz
 
 # Move Apache Solr Configuration File to Jetty directory
 echo "Move Apache Solr Configuration File to Jetty directory"
-sudo cp -R $TMP/apache-solr-3.3.0/example/solr/ $JETTY_HOME/
+sudo cp -R $TMP/apache-solr-$SOLR_VERSION/example/solr/ $JETTY_HOME/
 
 # Copy Apache Solr Application (war file) to Jetty webapp directory
 echo "Copy Apache Solr Application (war file) to Jetty webapp directory"
-sudo cp $TMP/apache-solr-3.3.0/dist/apache-solr-3.3.0.war $JETTY_HOME/webapps/apache-solr-3.3.0.war
+sudo cp $TMP/apache-solr-$SOLR_VERSION/dist/apache-solr-$SOLR_VERSION.war $JETTY_HOME/webapps/apache-solr-$SOLR_VERSION.war
 
 # Copy Solr context from git repository
 echo "Copy Solr context from git repository"
@@ -71,7 +72,7 @@ sudo cp $BASEDIR/conf/jetty.sh /etc/init.d/jetty
 sudo chown -R jetty:jetty $JETTY_HOME
 #Clean up
 echo "Clean up"
-sudo rm -R $TMP/apache-solr-3.3.0/
+sudo rm -R $TMP/apache-solr-$SOLR_VERSION/
 
 echo "Finish"
 echo "For launch Jetty and Solr, run the command java -jar start.jar in the directory $JETTY_HOME"
