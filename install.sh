@@ -28,7 +28,7 @@ fi
 # Download and Install Jetty Server
 echo "Download and Install Jetty Server"
 cd $HOME_INSTALL
-JETTY_VERSION=7.6.4.v20120524
+JETTY_VERSION=7.6.11.v20130520
 sudo wget http://download.eclipse.org/jetty/$JETTY_VERSION/dist/jetty-distribution-$JETTY_VERSION.tar.gz
 sudo tar xfz jetty-distribution-$JETTY_VERSION.tar.gz
 sudo rm jetty-distribution-$JETTY_VERSION.tar.gz
@@ -42,7 +42,7 @@ sudo cp $BASEDIR/conf/jetty.xml $JETTY_HOME/etc/jetty.xml
 
 #Download and Install Apache Solr
 echo "Download and Install Apache Solr"
-SOLR_VERSION=3.6.0
+SOLR_VERSION=3.6.2
 cd $TMP
 wget http://apache.mirrors.timporter.net/lucene/solr/$SOLR_VERSION/apache-solr-$SOLR_VERSION.tgz
 tar -xzf apache-solr-$SOLR_VERSION.tgz
