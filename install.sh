@@ -18,9 +18,10 @@ BASEDIR=`dirname $SCRIPT`
 TMP=/mnt/temp
 HOME_INSTALL=/usr/share
 
+
 # Create jetty user
-USER_EXIST=$(id -u jetty)
-if [ $USER_EXIST == 0 ]; then
+
+if  [ -z "$(getent passwd jetty)" ];then
    sudo groupadd -r jetty
    sudo useradd -M -r -g jetty jetty
 fi
